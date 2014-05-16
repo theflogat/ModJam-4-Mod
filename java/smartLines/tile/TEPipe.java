@@ -39,9 +39,6 @@ public class TEPipe extends TileEntity{
 			items = Inventory.insert(tile, items, i);
 			return true;
 		}
-
-
-
 		return false;
 	}
 

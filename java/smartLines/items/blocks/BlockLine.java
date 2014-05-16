@@ -2,6 +2,7 @@ package smartLines.items.blocks;
 
 import java.util.List;
 
+import smartLines.SmartLines;
 import smartLines.lib.Names;
 import smartLines.lib.ModLib;
 import smartLines.tile.TEPipe;
@@ -15,10 +16,12 @@ import net.minecraft.world.World;
 
 public class BlockLine extends BlockContainer{
 
-	protected BlockLine() {
+	public BlockLine() {
 		super(Material.iron);
 		setBlockName(ModLib.getId(Names.blockLine));
 		setBlockUnbreakable();
+		setBlockBounds(0.4F, 0.4F, 0.4F, 0.6F, 0.6F, 0.6F);
+		setCreativeTab(SmartLines.lines);
 	}
 	
 	@Override

@@ -1,5 +1,7 @@
 package smartLines.handlers;
 
+import smartLines.api.Lines;
+import smartLines.items.items.ItemPipe;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
@@ -11,7 +13,7 @@ public class CreativeTabLines extends CreativeTabs{
 
 	@Override
 	public Item getTabIconItem() {
-		return null;
+		return Lines.itemPipe;
 	}
 
 }

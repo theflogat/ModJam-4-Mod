@@ -1,6 +1,7 @@
 package smartLines;
 
 import smartLines.handlers.CreativeTabLines;
+import smartLines.items.Items;
 import smartLines.lib.ModLib;
 import smartLines.proxies.CommonProxy;
 import cpw.mods.fml.common.Mod;
@@ -23,7 +24,7 @@ public class SmartLines {
 		
 		proxy.initRenderers();
 		proxy.initSounds();
-		
+		Items.init();
 	}
 	
 	@EventHandler
@@ -32,7 +33,7 @@ public class SmartLines {
 	}
 	
 	@EventHandler
-	public void podtInit(FMLPostInitializationEvent event) {
+	public void postInit(FMLPostInitializationEvent event) {
 		
 	}
 }
