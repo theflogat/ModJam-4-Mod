@@ -7,11 +7,11 @@ public class ModLib {
 	public static final String author = "theflogat";
 	public static final String proxyLocation = "smartLines.proxies";
 	
-	public String getId(String str) {
+	public static String getId(String str) {
 		return modId + ":" + author + ":" + str;
 	}
 	
-	public String getAsset(String str) {
+	public static String getAsset(String str) {
 		return modId + ":" + str;
 	}
 }

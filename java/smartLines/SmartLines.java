@@ -1,5 +1,6 @@
 package smartLines;
 
+import smartLines.handlers.CreativeTabLines;
 import smartLines.lib.ModLib;
 import smartLines.proxies.CommonProxy;
 import cpw.mods.fml.common.Mod;
@@ -14,6 +15,8 @@ public class SmartLines {
 	
 	@SidedProxy(clientSide = ModLib.proxyLocation + ".ClientProxy", serverSide = ModLib.proxyLocation + ".CommonProxy")
 	public static CommonProxy proxy;
+	
+	public static CreativeTabLines lines = new CreativeTabLines();
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
