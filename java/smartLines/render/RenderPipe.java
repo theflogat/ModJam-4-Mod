@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 public class RenderPipe extends TileEntitySpecialRenderer{
 	
 	ModelPipe model = new ModelPipe();
-	ResourceLocation texture = new ResourceLocation(ModLib.modId.toLowerCase(), "textures/model/pipe.png");
+	ResourceLocation texture = new ResourceLocation(ModLib.modId.toLowerCase(), "textures/models/pipe.png");
 
 	@Override
 	public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float partialTickTime) {

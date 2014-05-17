@@ -9,12 +9,25 @@ public class ModelPipe extends ModelBase{
 	
 	private ArrayList<ModelRenderer> parts = new ArrayList<ModelRenderer>();
 	
-	public void render(float mult){
-		
+	public ModelPipe() {
+		textureHeight = 256;
+		textureWidth = 256;
 		
 		ModelRenderer core = new ModelRenderer(this, 0, 0);
-		core.addBox(0, 0, 0, 0, 0, 0);
-		core.setRotationPoint(0, 0, 0);
-		parts.add(core);
+		core.addBox(-4, -4, -4, 8, 8, 8);
+		core.setRotationPoint(-8, -8, 8);
+		//parts.add(core);
+		
+		//z -
+		ModelRenderer left = new ModelRenderer(this, 0, 16);
+		left.addBox(-2, -4, -4, 4, 8, 8);
+		//left.setRotationPoint(-8, -8, 0);
+		parts.add(left);
+	}
+	
+	public void render(float mult){
+		for(ModelRenderer part : parts){
+			part.render(mult);
+		}
 	}
 }

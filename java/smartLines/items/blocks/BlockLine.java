@@ -18,11 +18,13 @@ public class BlockLine extends BlockContainer{
 
 	public BlockLine() {
 		super(Material.iron);
-		setBlockName(ModLib.getId(Names.blockLine));
+		setBlockName(ModLib.getUnloc(Names.blockLine));
 		setBlockUnbreakable();
-		setBlockBounds(0.4F, 0.4F, 0.4F, 0.6F, 0.6F, 0.6F);
+		setBlockBounds(0.2F, 0.2F, 0.2F, 0.8F, 0.8F, 0.8F);
 		setCreativeTab(SmartLines.lines);
 	}
+	
+	
 	
 	@Override
 	public void breakBlock(World w, int x, int y, int z, Block block, int q) {
@@ -36,7 +38,17 @@ public class BlockLine extends BlockContainer{
 	}
 	
 	@Override
-	public void getSubBlocks(Item item, CreativeTabs tab, List list) {}
+	public boolean isNormalCube() {
+		return false;
+	}
+	
+	@Override
+	public boolean isOpaqueCube() {
+		return false;
+	}
+	
+	@Override
+	public void getSubBlocks(Item item, CreativeTabs tab, List list) {super.getSubBlocks(item, tab, list);}
 
 	@Override
 	public TileEntity createNewTileEntity(World var1, int var2) {

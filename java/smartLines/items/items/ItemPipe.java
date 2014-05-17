@@ -18,7 +18,7 @@ public class ItemPipe extends Item{
 	
 	public ItemPipe() {
 		setCreativeTab(SmartLines.lines);
-		setUnlocalizedName(ModLib.getId(Names.itemP));
+		setUnlocalizedName(ModLib.getUnloc(Names.itemP));
 	}
 	
 	@Override
