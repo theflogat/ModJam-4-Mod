@@ -19,10 +19,16 @@ public class ModelPipe extends ModelBase{
 		parts.add(core);
 		
 		//z -
-		ModelRenderer left = new ModelRenderer(this, 0, 16);
-		left.addBox(-4, -4, -2, 8, 8, 4);
-		left.setRotationPoint(-8, -8, 0);
-		parts.add(left);
+		ModelRenderer zm = new ModelRenderer(this, 0, 16);
+		zm.addBox(-4, -4, -2, 8, 8, 4);
+		zm.setRotationPoint(-8, -8, 2);
+		parts.add(zm);
+		
+		//z +
+		ModelRenderer zl = new ModelRenderer(this, 0, 16);
+		zl.addBox(-2, -4, -4, 4, 8, 8);
+		zl.setRotationPoint(2, -8, -8);
+		parts.add(zl);
 	}
 	
 	public void render(float mult){
