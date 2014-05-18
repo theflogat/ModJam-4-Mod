@@ -5,4 +5,5 @@ public class Names {
 	
 	public static final String itemP = "itemPipeItem";
 	public static final String fluidP = "itemPipeFluid";
+	public static final String wrench = "itemWrench";
 }

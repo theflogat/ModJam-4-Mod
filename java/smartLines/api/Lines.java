@@ -7,5 +7,6 @@ public class Lines {
 	public static Block line;
 	
 	public static Item itemPipe;
-	public static Item itemPipeFast;
+	//public static Item itemPipeFast;
+	public static Item itemWrech;
 }

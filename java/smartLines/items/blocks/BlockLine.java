@@ -2,17 +2,20 @@ package smartLines.items.blocks;
 
 import java.util.List;
 
-import smartLines.SmartLines;
-import smartLines.lib.Names;
-import smartLines.lib.ModLib;
-import smartLines.tile.TEPipe;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import smartLines.SmartLines;
+import smartLines.items.items.ItemWrench;
+import smartLines.lib.ModLib;
+import smartLines.lib.Names;
+import smartLines.tile.TEPipe;
 
 public class BlockLine extends BlockContainer{
 
@@ -24,7 +27,31 @@ public class BlockLine extends BlockContainer{
 		setCreativeTab(SmartLines.lines);
 	}
 	
+	@Override
+	public void onNeighborBlockChange(World w, int x, int y, int z, Block block) {
+		((TEPipe)w.getTileEntity(x, y, z)).onNeighbourUpdate();
+	}
 	
+	@Override
+	public void onBlockAdded(World w, int x, int y, int z) {
+		((TEPipe)w.getTileEntity(x, y, z)).onNeighbourUpdate();
+	}
+	
+	@Override
+	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+		TileEntity tile = w.getTileEntity(x, y, z);
+		if(tile!=null && tile instanceof TEPipe){
+			ItemStack heldItem = player.inventory.mainInventory[player.inventory.currentItem].copy();
+			if(heldItem != null && heldItem.getItem() instanceof ItemWrench){
+				
+			}
+		}
+		
+		
+		
+		
+		return false;
+	}
 	
 	@Override
 	public void breakBlock(World w, int x, int y, int z, Block block, int q) {

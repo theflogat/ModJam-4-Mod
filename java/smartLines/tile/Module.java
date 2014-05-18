@@ -1,6 +1,10 @@
 package smartLines.tile;
 
+import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class Module {
 	
@@ -8,8 +12,6 @@ public class Module {
 		IGNORE((byte)0),
 		SIGNAL((byte)1),
 		NOSIGNAL((byte)2);
-		
-		
 		
 		byte id;
 		
@@ -20,17 +22,19 @@ public class Module {
 		public static ModesReds[] m = {IGNORE, SIGNAL, NOSIGNAL};
 	}
 	
-	boolean con = true;
+	boolean con = false;
+	boolean forceDeco = false;
 	//Input Output I/O Provide Request Craft
 	boolean[] modes = {
 		true, false, false, false, false, false	
 	};
 	ModesReds reds = ModesReds.SIGNAL;
 	
-	public Module(ModesReds red, boolean[] modes, boolean connect) {
+	public Module(ModesReds red, boolean[] modes, boolean connect, boolean forceDeco2) {
 		reds = red;
 		this.modes = modes;
 		con = connect;
+		forceDeco = forceDeco2;
 	}
 	
 	public Module() {}
@@ -43,6 +47,7 @@ public class Module {
 		}
 		
 		comp.setBoolean("connection" + id, con);
+		comp.setBoolean("Fconnection" + id, forceDeco);
 	}
 
 	public static Module readFromNBT(NBTTagCompound comp, String id) {
@@ -63,7 +68,21 @@ public class Module {
 		
 		
 		boolean con = comp.getBoolean("connection" + id);
+		boolean forceDeco = comp.getBoolean("Fconnection" + id);
 		
-		return new Module(reds, modes, con);
+		return new Module(reds, modes, con, forceDeco);
+	}
+
+	public void updateCon(World w, int x, int y, int z, ForgeDirection dir) {
+		TileEntity tile = w.getTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
+		if(tile !=null && (tile instanceof IInventory || tile instanceof TEPipe)){
+			con = true;
+			return;
+		}
+		con = false;
+	}
+	
+	public boolean doCon() {
+		return forceDeco ? false : con;
 	}
 }

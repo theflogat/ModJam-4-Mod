@@ -22,13 +22,6 @@ public class ItemPipe extends Item{
 	}
 	
 	@Override
-	public boolean onItemUse(ItemStack items, EntityPlayer player, World w, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-		
-		
-		return true;
-	}
-	
-	@Override
 	public ItemStack onItemRightClick(ItemStack items, World w,	EntityPlayer player) {
 		MovingObjectPosition pos = getMovingObjectPositionFromPlayer(w, player, true);
 		

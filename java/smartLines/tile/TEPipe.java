@@ -1,6 +1,7 @@
 package smartLines.tile;
 
 import smartLines.api.SIDE;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -8,12 +9,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class TEPipe extends TileEntity{
+public class TEPipe extends TileEntity implements IInventory{
 	boolean item = false;
 	Module[] itemMod = {
 			new Module(),new Module(),new Module(),new Module(),new Module(),new Module(),
 	};
-	
+
 	public ItemStack items;
 
 	@Override
@@ -26,7 +27,14 @@ public class TEPipe extends TileEntity{
 				}
 			}
 		}
+		onNeighbourUpdate();
+	}
 
+	public void onNeighbourUpdate() {
+		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS){
+			int i = SIDE.getSideFromDir(dir);
+			itemMod[i].updateCon(worldObj, xCoord, yCoord, zCoord, dir);
+		}
 	}
 
 	private boolean useItemBasic(ForgeDirection dir){
@@ -42,19 +50,84 @@ public class TEPipe extends TileEntity{
 		return false;
 	}
 
-	
-	
+	public boolean[] getConnections() {
+		return new boolean[]{
+				itemMod[0].doCon(),itemMod[1].doCon(),itemMod[2].doCon(),itemMod[3].doCon(),itemMod[4].doCon(),itemMod[5].doCon()
+		};
+	}
+
 	@Override
 	public void readFromNBT(NBTTagCompound comp) {
 		super.readFromNBT(comp);
 		for(int i = 0; i<itemMod.length; i++)
 			itemMod[i] = Module.readFromNBT(comp, "item" + i);
 	}
-	
+
 	@Override
 	public void writeToNBT(NBTTagCompound comp) {
 		super.writeToNBT(comp);
 		for(int i = 0; i<itemMod.length; i++)
 			itemMod[i].writeToNBT(comp, "item" + i);
+	}
+
+	@Override
+	public int getSizeInventory() {
+		return 1;
+	}
+
+	@Override
+	public ItemStack getStackInSlot(int var1) {
+		return items;
+	}
+
+	@Override
+	public ItemStack decrStackSize(int slot, int count) {
+		ItemStack itemstack = getStackInSlot(slot);
+
+		if(itemstack != null) {
+			if(itemstack.stackSize <= count) {
+				setInventorySlotContents(slot, null);
+			} else {
+		itemstack = itemstack.splitStack(count);
+			}
+		}
+		return itemstack;
+	}
+
+	@Override
+	public ItemStack getStackInSlotOnClosing(int var1) {
+		ItemStack toGive = items.copy();
+		items = null;
+		return toGive;
+	}
+
+	@Override
+	public void setInventorySlotContents(int i, ItemStack items) {
+		this.items = items;
+	}
+
+	@Override
+	public String getInventoryName() {return "Pipe";}
+
+	@Override
+	public boolean hasCustomInventoryName() {return false;}
+
+	@Override
+	public int getInventoryStackLimit() {return 64;}
+
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer player) {
+		return true;
+	}
+
+	@Override
+	public void openInventory() {}
+
+	@Override
+	public void closeInventory() {}
+
+	@Override
+	public boolean isItemValidForSlot(int var1, ItemStack var2) {
+		return true;
 	}
 }
