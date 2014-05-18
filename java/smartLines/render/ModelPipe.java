@@ -1,12 +1,14 @@
 package smartLines.render;
 
-import java.util.ArrayList;
+import java.awt.Color;
 
-import smartLines.api.SIDE;
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.common.util.RotationHelper;
+import smartLines.api.SIDE;
+import smartLines.tile.TEPipe;
 
 public class ModelPipe extends ModelBase{
 
@@ -63,13 +65,29 @@ public class ModelPipe extends ModelBase{
 		cons[SIDE.getSideFromDir(ForgeDirection.UP)] = ym;
 	}
 
-	public void render(float mult, boolean[] cons){
+	public void render(float mult, boolean[] cons, TEPipe tile){
+
+		GL11.glColor3f(Color.black.getRed(), Color.black.getBlue(), Color.black.getGreen());
 		core.render(mult);
 		
 		for(int i = 0; i<cons.length; i++){
 			if(cons[i]){
+				Color color = getColor(tile.itemMod[i].modes.id);
+				GL11.glColor3f(color.getRed(), color.getBlue(), color.getGreen());
 				this.cons[i].render(mult);
 			}
 		}
+	}
+	
+	private Color getColor(int id) {
+		switch(id){
+		case 0: return Color.black;
+		case 1: return Color.red;
+		case 2: return Color.blue;
+		case 3: return Color.green;
+		case 4: return Color.orange;
+		case 5: return Color.white;
+		}
+		return null;
 	}
 }

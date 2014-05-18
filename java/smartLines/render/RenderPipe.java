@@ -25,7 +25,7 @@ public class RenderPipe extends TileEntitySpecialRenderer{
 		GL11.glScalef(-1F,-1F,1F);
 		
 		bindTexture(texture);
-		model.render(0.0625F, tile.getConnections());
+		model.render(0.0625F, tile.getConnections(), tile);
 		
 		GL11.glPopMatrix();
 	}

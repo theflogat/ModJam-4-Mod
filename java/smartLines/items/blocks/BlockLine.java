@@ -1,5 +1,6 @@
 package smartLines.items.blocks;
 
+import java.util.Iterator;
 import java.util.List;
 
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
@@ -11,12 +12,16 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatStyle;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
 import smartLines.SmartLines;
+import smartLines.api.SIDE;
 import smartLines.items.items.ItemWrench;
 import smartLines.lib.GuiIds;
 import smartLines.lib.ModLib;
 import smartLines.lib.Names;
+import smartLines.tile.Module.Modes;
 import smartLines.tile.TEPipe;
 
 public class BlockLine extends BlockContainer{
@@ -46,7 +51,11 @@ public class BlockLine extends BlockContainer{
 			if(tile!=null && tile instanceof TEPipe){
 				ItemStack heldItem = player.inventory.mainInventory[player.inventory.currentItem].copy();
 				if(heldItem != null && heldItem.getItem() instanceof ItemWrench){
-					FMLNetworkHandler.openGui(player, SmartLines.instance, GuiIds.Item, w, x, y, z);
+					if(heldItem.getItemDamage()<1){
+						FMLNetworkHandler.openGui(player, SmartLines.instance, GuiIds.Item, w, x, y, z);
+					}else{
+						((TEPipe)tile).itemMod[side].nextMode(w, x, y, z, SIDE.getDirFromSide(side));
+					}
 					return true;
 				}
 			}

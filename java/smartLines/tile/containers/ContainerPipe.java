@@ -12,7 +12,6 @@ public class ContainerPipe extends Container{
 	
 	public ContainerPipe(TEPipe te, InventoryPlayer inv) {
 		tile = te;
-		//int offsetY = te.getActiveTab()==-1 ? 33 : 0;
 		int offsetY = 37;
 		int size = 18;
 		

@@ -14,7 +14,7 @@ import smartLines.api.SIDE;
 public class TEPipe extends TileEntity implements IInventory{
 	boolean item = false;
 	int activeTab;
-	Module[] itemMod = {
+	public Module[] itemMod = {
 			new Module(),new Module(),new Module(),new Module(),new Module(),new Module(),
 	};
 
@@ -31,6 +31,7 @@ public class TEPipe extends TileEntity implements IInventory{
 				}
 			}
 		}
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		onNeighbourUpdate();
 	}
 	
