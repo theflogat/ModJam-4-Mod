@@ -41,7 +41,7 @@ public class BlockLine extends BlockContainer{
 	
 	@Override
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-		if(!w.isRemote){
+		try{if(!w.isRemote){
 			TileEntity tile = w.getTileEntity(x, y, z);
 			if(tile!=null && tile instanceof TEPipe){
 				ItemStack heldItem = player.inventory.mainInventory[player.inventory.currentItem].copy();
@@ -50,7 +50,7 @@ public class BlockLine extends BlockContainer{
 					return true;
 				}
 			}
-		}
+		}}catch(Exception e){}
 		return false;
 	}
 	

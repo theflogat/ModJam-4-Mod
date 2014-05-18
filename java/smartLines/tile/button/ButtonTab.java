@@ -7,7 +7,7 @@ import smartLines.tile.guis.GuiPipe;
 public class ButtonTab {
 
 	String text;
-	int id;
+	public int id;
 	int x;
 	int y;
 	int size = 18;
@@ -20,7 +20,7 @@ public class ButtonTab {
 	}
 
 	public void draw(GuiPipe gui, int mX, int mY) {
-		gui.getFont().drawString(text, x, y, isPointInRegion(gui, mX, mY) ? Color.GREEN.getRGB() : Color.GRAY.getRGB());
+		gui.getFont().drawSplitString(text, gui.getLeft() + x, gui.getTop() + y, size,isPointInRegion(gui, mX, mY) ? Color.GREEN.getRGB() : Color.GRAY.getRGB());
 	}
 
 	public boolean isPointInRegion(GuiPipe gui, int mX, int mY) {
