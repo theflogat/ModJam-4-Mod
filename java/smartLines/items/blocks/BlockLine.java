@@ -12,6 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.world.World;
@@ -52,9 +53,11 @@ public class BlockLine extends BlockContainer{
 				ItemStack heldItem = player.inventory.mainInventory[player.inventory.currentItem].copy();
 				if(heldItem != null && heldItem.getItem() instanceof ItemWrench){
 					if(heldItem.getItemDamage()<1){
-						FMLNetworkHandler.openGui(player, SmartLines.instance, GuiIds.Item, w, x, y, z);
+						if(((TEPipe)tile).itemMod[side].canChange(w, x, y, z, SIDE.getDirFromSide(side)))
+							FMLNetworkHandler.openGui(player, SmartLines.instance, side, w, x, y, z);
 					}else{
 						((TEPipe)tile).itemMod[side].nextMode(w, x, y, z, SIDE.getDirFromSide(side));
+						player.addChatComponentMessage(new ChatComponentText(((TEPipe)tile).itemMod[side].modes.toString()));
 					}
 					return true;
 				}

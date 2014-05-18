@@ -12,7 +12,7 @@ public class ContainerPipe extends Container{
 	
 	public ContainerPipe(TEPipe te, InventoryPlayer inv) {
 		tile = te;
-		int offsetY = 37;
+		int offsetY = 70;
 		int size = 18;
 		
 		for(int x = 0; x < 9; x++) {

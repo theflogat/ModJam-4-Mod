@@ -32,13 +32,9 @@ public class GuiHandler implements IGuiHandler {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World w, int x, int y, int z) {
 		TileEntity tile = w.getTileEntity(x, y, z);
-		switch(ID){
-		case GuiIds.Item:
-			return new GuiPipe((TEPipe) tile, player.inventory);
-
-		}
+		return new GuiPipe((TEPipe) tile, player.inventory, ID);
 
 
-		return null;
+		//return null;
 	}
 }

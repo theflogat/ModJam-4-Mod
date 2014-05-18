@@ -124,6 +124,10 @@ public class Module {
 	public boolean doCon() {
 		return forceDeco ? false : con;
 	}
+	
+	public boolean canChange(World w, int x, int y, int z, ForgeDirection dir) {
+		return con && !(w.getTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ) instanceof TEPipe);
+	}
 
 	public void nextMode(World w, int x, int y, int z, ForgeDirection dir) {
 		if(con && !(w.getTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ) instanceof TEPipe))
