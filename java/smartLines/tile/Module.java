@@ -133,4 +133,11 @@ public class Module {
 		if(con && !(w.getTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ) instanceof TEPipe))
 		modes = Modes.m[modes.id<5?modes.id+1: 0];
 	}
+
+       public IInventory provide(World w, int x, int y, int z, ForgeDirection dir){
+             TileEntity tile = w.getTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
+             if(doCon() && tile!=null && tile instanceof IInventory && !(tile instanceof TEPipe)){
+                    return (IInventory)tile;
+              }
+        }
 }
