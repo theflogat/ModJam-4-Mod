@@ -2,6 +2,7 @@ package smartLines.items.blocks;
 
 import java.util.List;
 
+import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -13,6 +14,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import smartLines.SmartLines;
 import smartLines.items.items.ItemWrench;
+import smartLines.lib.GuiIds;
 import smartLines.lib.ModLib;
 import smartLines.lib.Names;
 import smartLines.tile.TEPipe;
@@ -39,17 +41,16 @@ public class BlockLine extends BlockContainer{
 	
 	@Override
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-		TileEntity tile = w.getTileEntity(x, y, z);
-		if(tile!=null && tile instanceof TEPipe){
-			ItemStack heldItem = player.inventory.mainInventory[player.inventory.currentItem].copy();
-			if(heldItem != null && heldItem.getItem() instanceof ItemWrench){
-				
+		if(!w.isRemote){
+			TileEntity tile = w.getTileEntity(x, y, z);
+			if(tile!=null && tile instanceof TEPipe){
+				ItemStack heldItem = player.inventory.mainInventory[player.inventory.currentItem].copy();
+				if(heldItem != null && heldItem.getItem() instanceof ItemWrench){
+					FMLNetworkHandler.openGui(player, SmartLines.instance, GuiIds.Item, w, x, y, z);
+					return true;
+				}
 			}
 		}
-		
-		
-		
-		
 		return false;
 	}
 	

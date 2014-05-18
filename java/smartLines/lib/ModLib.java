@@ -16,6 +16,6 @@ public class ModLib {
 	}
 	
 	public static String getAsset(String str) {
-		return modId + ":" + str;
+		return modId.toLowerCase() + ":" + str;
 	}
 }
