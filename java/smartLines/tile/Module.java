@@ -139,5 +139,6 @@ public class Module {
              if(doCon() && tile!=null && tile instanceof IInventory && !(tile instanceof TEPipe)){
                     return (IInventory)tile;
               }
+        return null;
         }
 }
