@@ -13,6 +13,7 @@ import smartLines.api.SIDE;
 
 public class TEPipe extends TileEntity implements IInventory{
 	boolean item = false;
+	int activeTab;
 	Module[] itemMod = {
 			new Module(),new Module(),new Module(),new Module(),new Module(),new Module(),
 	};
@@ -32,7 +33,16 @@ public class TEPipe extends TileEntity implements IInventory{
 		}
 		onNeighbourUpdate();
 	}
-
+	
+	public void setActiveTab(int activeTab) {
+		this.activeTab = activeTab;
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+	}
+	
+	public int getActiveTab() {
+		return activeTab;
+	}
+	
 	public void onNeighbourUpdate() {
 		for(ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS){
 			int i = SIDE.getSideFromDir(dir);
@@ -64,6 +74,7 @@ public class TEPipe extends TileEntity implements IInventory{
 		super.readFromNBT(comp);
 		for(int i = 0; i<itemMod.length; i++)
 			itemMod[i] = Module.readFromNBT(comp, "item" + i);
+		activeTab = comp.getInteger("tab");
 	}
 
 	@Override
@@ -71,6 +82,7 @@ public class TEPipe extends TileEntity implements IInventory{
 		super.writeToNBT(comp);
 		for(int i = 0; i<itemMod.length; i++)
 			itemMod[i].writeToNBT(comp, "item" + i);
+		comp.setInteger("tab", activeTab);
 	}
 
 	@Override
