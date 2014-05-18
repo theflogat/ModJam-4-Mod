@@ -2,7 +2,9 @@ package smartLines.tile.guis;
 
 import smartLines.lib.ModLib;
 import smartLines.tile.TEPipe;
+import smartLines.tile.button.ButtonTab;
 import smartLines.tile.containers.ContainerPipe;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -13,13 +15,20 @@ public class GuiPipe extends GuiContainer{
 	int sizeX1 = 143;
 	int sizeY1 = 33;
 	int activeTab = 0;
+	static ButtonTab[] tabs = new ButtonTab[6];
 	
 	private ResourceLocation texture = new ResourceLocation(ModLib.modId.toLowerCase(), "textures/guis/pipe.png");
 
 	public GuiPipe(TEPipe te, InventoryPlayer inv) {
 		super(new ContainerPipe(te, inv));
 	}
-
+	
+	static{
+		for(int i = 0; i<tabs.length; i++){
+			
+		}
+	}
+	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float var1, int x, int y) {
 		mc.renderEngine.bindTexture(texture);
@@ -31,5 +40,16 @@ public class GuiPipe extends GuiContainer{
 		}
 		
 	}
-
+	
+	public FontRenderer getFont() {
+		return fontRendererObj;
+	}
+	
+	public int getLeft() {
+		return guiLeft;
+	}
+	
+	public int getTop() {
+		return guiTop;
+	}
 }

@@ -1,13 +1,15 @@
 package smartLines.tile;
 
-import smartLines.api.SIDE;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+import smartLines.api.SIDE;
 
 public class TEPipe extends TileEntity implements IInventory{
 	boolean item = false;
@@ -24,6 +26,7 @@ public class TEPipe extends TileEntity implements IInventory{
 			if(item){
 				if(itemMod[i].con){
 					useItemBasic(dir);
+					worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 				}
 			}
 		}
@@ -88,7 +91,7 @@ public class TEPipe extends TileEntity implements IInventory{
 			if(itemstack.stackSize <= count) {
 				setInventorySlotContents(slot, null);
 			} else {
-		itemstack = itemstack.splitStack(count);
+				itemstack = itemstack.splitStack(count);
 			}
 		}
 		return itemstack;
@@ -129,5 +132,17 @@ public class TEPipe extends TileEntity implements IInventory{
 	@Override
 	public boolean isItemValidForSlot(int var1, ItemStack var2) {
 		return true;
+	}
+
+	@Override
+	public Packet getDescriptionPacket() {
+		NBTTagCompound comp = new NBTTagCompound();
+		writeToNBT(comp);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, comp);
+	}
+
+	@Override
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+		readFromNBT(pkt.func_148857_g());
 	}
 }
